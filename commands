@@ -1,0 +1,9 @@
+1. Boot instance from command line.
+nova boot --flavor m1.tiny --image cirros-0.3.3-x86_64 --nic net-id=34c83f00-ffef-4f73-b14d-e806e658c560 \
+> --security-group default --key-name priyanka private-instance
+
+2. Keypair- nova
+    keypair-add                 Create a new key pair for use with servers.
+    keypair-delete              Delete keypair given by its name.
+    keypair-list                Print a list of keypairs for a user
+    keypair-show                Show details about the given keypair.
