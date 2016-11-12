@@ -7,3 +7,15 @@ nova boot --flavor m1.tiny --image cirros-0.3.3-x86_64 --nic net-id=34c83f00-ffe
     keypair-delete              Delete keypair given by its name.
     keypair-list                Print a list of keypairs for a user
     keypair-show                Show details about the given keypair.
+    
+3. Floatingip -management
+  floatingip-associate           Create a mapping between a floating IP and a fixed IP.
+  floatingip-create              Create a floating IP for a given tenant.
+  floatingip-delete              Delete a given floating IP.
+  floatingip-disassociate        Remove a mapping from a floating IP to a fixed IP.
+  floatingip-list                List floating IPs that belong to a given tenant.
+  floatingip-show                Show information of a given floating IP.
+  
+  A. neutron floatingip-create ext-net
+  B. nova floating-ip-associate instance-name-m 192.168.2.182
+
