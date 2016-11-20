@@ -1,0 +1,9 @@
+Open vSwitch is an open source OpenFlow capable virtual switch that is typically used with hypervisor 
+to interconnect virtual machines withine a host and virtual machines between different hosts across 
+networks. 
+
+Features Include: 
+1. VLAN tagging and 802.1q trunking
+2. Standard spanning tree protocol(802.1D)
+3. tunneling (e.g GRE, VXLAN, IPSEC)
+4. QOS
