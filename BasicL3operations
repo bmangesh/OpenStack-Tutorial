@@ -1,0 +1,71 @@
+ Basic L3 operations
+External networks are visible to all users. However, the default policy settings enable only administrative users to create, update, and delete external networks.
+
+This table shows example neutron commands that enable you to complete basic L3 operations:
+
+Table 7.9. Basic L3 operations
+Operation	Command
+Creates external networks.
+
+# neutron net-create public --router:external True
+$ neutron subnet-create public 172.16.1.0/24
+Lists external networks.
+
+$ neutron net-list -- --router:external True
+Creates an internal-only router that connects to multiple L2 networks privately.
+
+$ neutron net-create net1
+$ neutron subnet-create net1 10.0.0.0/24
+$ neutron net-create net2
+$ neutron subnet-create net2 10.0.1.0/24
+$ neutron router-create router1
+$ neutron router-interface-add router1 SUBNET1_UUID
+$ neutron router-interface-add router1 SUBNET2_UUID
+Connects a router to an external network, which enables that router to act as a NAT gateway for external connectivity.
+
+$ neutron router-gateway-set router1 EXT_NET_ID
+The router obtains an interface with the gateway_ip address of the subnet and this interface is attached to a port on the L2 Networking network associated with the subnet. The router also gets a gateway interface to the specified external network. This provides SNAT connectivity to the external network as well as support for floating IPs allocated on that external networks. Commonly an external network maps to a network in the provider
+
+Lists routers.
+
+$ neutron router-list
+Shows information for a specified router.
+
+$ neutron router-show ROUTER_ID
+Shows all internal interfaces for a router.
+
+$ neutron router-port-list ROUTER_ID
+$ neutron router-port-list ROUTER_NAME
+Identifies the PORT_ID that represents the VM NIC to which the floating IP should map.
+
+$ neutron port-list -c id -c fixed_ips -- --device_id INSTANCE_ID
+This port must be on an Networking subnet that is attached to a router uplinked to the external network used to create the floating IP. Conceptually, this is because the router must be able to perform the Destination NAT (DNAT) rewriting of packets from the floating IP address (chosen from a subnet on the external network) to the internal fixed IP (chosen from a private subnet that is behind the router).
+
+Creates a floating IP address and associates it with a port.
+
+$ neutron floatingip-create EXT_NET_ID
+$ neutron floatingip-associate FLOATING_IP_ID INTERNAL_VM_PORT_ID
+Creates a floating IP address, and associates it with a port, in a single step.
+
+$ neutron floatingip-create --port_id INTERNAL_VM_PORT_ID EXT_NET_ID
+Lists floating IPs.
+
+$ neutron floatingip-list
+Finds floating IP for a specified VM port.
+
+$ neutron floatingip-list -- --port_id ZZZ
+Disassociates a floating IP address.
+
+$ neutron floatingip-disassociate FLOATING_IP_ID
+Deletes the floating IP address.
+
+$ neutron floatingip-delete FLOATING_IP_ID
+Clears the gateway.
+
+$ neutron router-gateway-clear router1
+Removes the interfaces from the router.
+
+$ neutron router-interface-delete router1 SUBNET_ID
+Deletes the router.
+
+$ neutron router-delete router1
