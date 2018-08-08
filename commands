@@ -17,5 +17,6 @@ nova boot --flavor m1.tiny --image cirros-0.3.3-x86_64 --nic net-id=34c83f00-ffe
   floatingip-show                Show information of a given floating IP.
   
   A. neutron floatingip-create ext-net
-  B. nova floating-ip-associate instance-name-m 192.168.2.182
+  B. neutron floatingip-associate FLOATING_IP_ID INTERNAL_VM_PORT_ID
+  B. nova floating-ip-associate instance-name-m 192.168.2.182 (not working)
 
